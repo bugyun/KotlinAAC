@@ -1,6 +1,8 @@
 package vip.ruoyun.googleaac
 
 import android.os.Bundle
+import android.util.Log
+import androidx.annotation.IntDef
 import androidx.annotation.MainThread
 import androidx.annotation.NonNull
 import androidx.annotation.WorkerThread
@@ -9,8 +11,43 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import vip.ruoyun.googleaac.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
+
+    companion object {
+        const val SUNDAY = 1
+        const val MONDAY = 1 shl 2
+        const val TUESDAY = 1 shl 3
+        const val WEDNESDAY = 1 shl 4
+        const val THURSDAY = 1 shl 5
+        const val FRIDAY = 1 shl 6
+        const val SATURDAY = 1 shl 7
+    }
+
+    @IntDef(flag = true, value = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY])
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class WeekDays
+
+    @WeekDays
+    var currentDay = SUNDAY or MONDAY
+
+    private fun useCurrentDay() {
+        currentDay = SUNDAY or MONDAY
+        when (currentDay) {
+            SUNDAY or MONDAY -> {
+                Log.e("zyh", "SUNDAY or MONDAY")
+            }
+            SUNDAY -> {
+                Log.e("zyh", "SUNDAY")
+            }
+            MONDAY -> {
+                Log.e("zyh", "MONDAY")
+            }
+        }
+    }
+
     override fun onChanged(t: Resource<*>?) {
+
         if (t?.data is User) {
 
         }
@@ -23,6 +60,9 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        useCurrentDay()
+
+
 //        setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         //将当前活动指定为生命周期所有者,数据改变，UI自动会更新
@@ -54,7 +94,7 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
         })
 
         //请求网络
-        viewModel.loadData()
+//        viewModel.loadData()
 
 
     }
