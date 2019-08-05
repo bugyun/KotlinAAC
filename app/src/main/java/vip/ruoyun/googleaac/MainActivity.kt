@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
         useCurrentDay()
 
 
+//        startActivity(Intent(this, MainActivity::class.java).apply {
+//            putExtra("XX", "")
+//        })
+
+
 //        setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         //将当前活动指定为生命周期所有者,数据改变，UI自动会更新
