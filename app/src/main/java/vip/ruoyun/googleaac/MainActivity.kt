@@ -1,5 +1,6 @@
 package vip.ruoyun.googleaac
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.IntDef
@@ -87,8 +88,56 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
         lifecycle.addObserver(MyObserver())
 
 
+//        ServiceLoader
+
+//        ActivityManager
+//        registerReceiver()
+
+//        sendBroadcast()
+
+//        BroadcastReceiver
+//        NetworkLiveData.get(this).observe(this,
+//            Observer<NetType> { netType ->
+//                when (netType) {
+//                    NetType.NET_UNKNOW -> {
+//                        Toast.makeText(this@MainActivity, "未知网络", Toast.LENGTH_LONG).show()
+//                        Log.e("uuu", "---MainActivity---未知网络")
+//                    }
+//                    NetType.NET_4G -> {
+//                        Toast.makeText(this@MainActivity, "4G", Toast.LENGTH_LONG).show()
+//                        Log.e("uuu", "---MainActivity---4G")
+//                    }
+//                    NetType.NET_3G -> {
+//                        Toast.makeText(this@MainActivity, "3G", Toast.LENGTH_LONG).show()
+//                        Log.e("uuu", "---MainActivity---3G")
+//                    }
+//                    NetType.NET_2G -> {
+//                        //有网络
+//                        Toast.makeText(this@MainActivity, "2G", Toast.LENGTH_LONG).show()
+//                        Log.e("uuu", "---MainActivity---2G")
+//                    }
+//                    NetType.WIFI -> {
+//                        Toast.makeText(this@MainActivity, "WIFI", Toast.LENGTH_LONG).show()
+//                        Log.e("uuu", "---MainActivity---WIFI")
+//                    }
+//                    NetType.NOME -> {
+//                        Toast.makeText(this@MainActivity, "没网络", Toast.LENGTH_LONG).show()
+//                        Log.e("uuu", "---MainActivity---没网络")
+//                    }
+//                    else -> {
+//                    }
+//                }//没有网络，提示用户跳转到设置
+//            })
+
         binding.mTextView.setOnClickListener {
             viewModel.user.value = User("李四", 22, 1)
+//
+            startActivity(Intent(this@MainActivity, TwoActivity::class.java).apply {
+            })
+
+//            startActivity(Intent(this, MainActivity::class.java).apply {
+//                putExtra("XX", "")
+//            })
         }
 
 
@@ -98,9 +147,9 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
 
         })
 
+
         //请求网络
 //        viewModel.loadData()
-
 
     }
 
