@@ -151,6 +151,22 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
         //请求网络
 //        viewModel.loadData()
 
+        val transformations = Transformations.map(viewModel.user) {
+            "A:$it"
+        }
+
+        transformations.observe(this, changeObserver)
+
+        binding.run {
+
+
+        }
+
+
+    }
+
+    private val changeObserver = Observer<String> { value ->
+        value?.let { binding.mTextView.text = it }
     }
 
     override fun onDestroy() {
