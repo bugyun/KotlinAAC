@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
 
     }
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,15 +70,14 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
 
 
 //        setContentView(R.layout.activity_main)
-        binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         //将当前活动指定为生命周期所有者,数据改变，UI自动会更新
         binding.lifecycleOwner = this
-
-
         //创建一个 ViewModel
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
         binding.viewModel = viewModel
+
 
 //        viewModel.user.observe(this, Observer {
 //
@@ -171,7 +170,6 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.unbind()
     }
 }
 
