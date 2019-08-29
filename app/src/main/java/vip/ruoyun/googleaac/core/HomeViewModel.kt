@@ -22,9 +22,8 @@ class HomeViewModel : ViewModel() {
             Log.d("viewModelScope", Thread.currentThread().name)//main
             name.value = "开始" //主线程
             name.value = loadData()
-           val user =  HttpService.getData()
+            val user = HttpService.getData()
         }
-
     }
 
     private suspend fun loadData(): String = withContext(IO) {
