@@ -49,6 +49,8 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
         }
     }
 
+    private val model2: HomeViewModel by viewModels()
+
     private val binding: T by lazy {
         val binDing =
             DataBindingUtil.setContentView<T>(this, R.layout.activity_home)
