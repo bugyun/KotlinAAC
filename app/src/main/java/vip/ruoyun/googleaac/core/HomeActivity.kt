@@ -29,7 +29,7 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
     //自己创建一个协程域
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    protected val TAG by lazy { HomeActivity::class.java.simpleName }
+    private val TAG by lazy { HomeActivity::class.java.simpleName }
 
     private val homeViewModel: HomeViewModel by lazy {
         //                ViewModelProviders.of(this)[HomeViewModel::class.java]
