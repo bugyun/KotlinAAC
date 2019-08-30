@@ -9,8 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.work.ListenableWorker
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import vip.ruoyun.googleaac.R
 import vip.ruoyun.googleaac.databinding.ActivityHomeBinding
 
@@ -49,6 +54,16 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.bean = homeViewModel
+
+        lifecycleScope.launch {
+            flow {
+                emit(1) // Ok
+                withContext(IO) {
+                    emit(2) // Will fail with ISE
+                }
+            }
+
+        }
 
 
 //        binding.mTextView.text = ""
