@@ -1,7 +1,6 @@
 package vip.ruoyun.googleaac.core
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.JsonReader
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,17 +10,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.work.ListenableWorker
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import vip.ruoyun.googleaac.R
 import vip.ruoyun.googleaac.databinding.ActivityHomeBinding
 
 class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
 
-    protected val TAG by lazy { HomeActivity::class.java.simpleName }
+
+    private val mainScope = MainScope()//默认 是 ui 线程的调度器
+    //自己创建一个协程域
+    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    private val TAG by lazy { HomeActivity::class.java.simpleName }
 
     private val homeViewModel: HomeViewModel by lazy {
         //                ViewModelProviders.of(this)[HomeViewModel::class.java]
@@ -33,7 +36,6 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
 //        ViewModelProvider(this)[HomeViewModel::class.java]
     }
 
-
     private val model: HomeViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -42,13 +44,14 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
         }
     }
 
+    private val model2: HomeViewModel by viewModels()
+
     private val binding: T by lazy {
         val binDing =
             DataBindingUtil.setContentView<T>(this, R.layout.activity_home)
         binDing.lifecycleOwner = this
         binDing
     }
-
 
     private val str: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,14 +72,26 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
 //        binding.mTextView.text = ""
 //        test(this)
 
+        repeat(10) {
+            mainScope.launch {
+                withContext(IO) {
+
+                    withContext(Main) {
+
+                    }
+                }
+            }
+        }
+
+
         str.isNullOrEmpty()//相当于 TextUtils.isEmpty()
-
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         binding.unbind()
+        mainScope.cancel()
+        coroutineScope.cancel()
     }
 
     suspend fun doWork(): ListenableWorker.Result = coroutineScope {
