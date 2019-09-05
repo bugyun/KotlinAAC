@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,7 +39,7 @@ class HomeViewModel : ViewModel() {
      */
     override fun onCleared() {
         super.onCleared()
-        viewModelScope.cancel()
+//        viewModelScope.cancel()
     }
 }
 
