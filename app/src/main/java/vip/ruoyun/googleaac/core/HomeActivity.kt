@@ -57,7 +57,7 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.bean = homeViewModel
-
+        lifecycleScope
         lifecycleScope.launch {
             flow {
                 emit(1) // Ok

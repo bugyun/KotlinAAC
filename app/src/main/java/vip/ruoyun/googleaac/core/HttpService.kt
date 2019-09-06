@@ -30,5 +30,5 @@ interface HttpService {
 
 }
 
-data class User(var name: String)
+data class User(var name: String, var id: Int = 0)
 data class Response<out T>(val code: String, val message: String, val t: T? = null)
