@@ -10,6 +10,8 @@ import androidx.annotation.WorkerThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
+import androidx.recyclerview.widget.DiffUtil
+import vip.ruoyun.googleaac.base.ListAdapter
 import vip.ruoyun.googleaac.databinding.ActivityMainBinding
 
 
@@ -161,6 +163,19 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
 
         }
 
+
+        val listAdapter = TestAdapter(lifecycleScope, object : DiffUtil.ItemCallback<User>() {
+            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+                return oldItem.name == newItem.name
+            }
+
+            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+                return oldItem.name == newItem.name
+            }
+
+        })
+
+        listAdapter.submitList(arrayListOf())
 
     }
 
