@@ -1,18 +1,19 @@
 package vip.ruoyun.googleaac.base
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
-import java.util.ArrayList
-import kotlin.properties.Delegates
-
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TestAdapter(val main: CoroutineScope) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return null
+        return ViewHolderItem(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -31,6 +32,11 @@ class TestAdapter(val main: CoroutineScope) : RecyclerView.Adapter<RecyclerView.
 
     override fun getItemCount(): Int {
         return 0
+    }
+
+
+    class ViewHolderItem(var view: View) : RecyclerView.ViewHolder(view) {
+
     }
 
 
