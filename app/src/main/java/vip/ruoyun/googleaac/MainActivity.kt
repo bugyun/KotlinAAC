@@ -10,6 +10,10 @@ import androidx.annotation.WorkerThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
+import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import androidx.recyclerview.widget.AsyncListUtil
 import androidx.recyclerview.widget.DiffUtil
 import vip.ruoyun.googleaac.base.ListAdapter
 import vip.ruoyun.googleaac.databinding.ActivityMainBinding
@@ -176,6 +180,18 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
         })
 
         listAdapter.submitList(arrayListOf())
+
+        val dataSourceFactory = object : DataSource.Factory<String, String>() {
+            override fun create(): DataSource<String, String> {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+
+        val alls = LivePagedListBuilder(dataSourceFactory, 20).build()
+
+        PagedList.Config.Builder().setPageSize(20).setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(20).build()
+
 
     }
 
