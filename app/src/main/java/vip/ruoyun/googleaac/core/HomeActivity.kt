@@ -24,9 +24,9 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
     //自己创建一个协程域
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private val TAG by lazy { HomeActivity::class.java.simpleName }
+    private val TAG by lazy(LazyThreadSafetyMode.NONE) { HomeActivity::class.java.simpleName }
 
-    private val homeViewModel: HomeViewModel by lazy {
+    private val homeViewModel: HomeViewModel by lazy(LazyThreadSafetyMode.NONE) {
         //                ViewModelProviders.of(this)[HomeViewModel::class.java]
         ViewModelProvider(
             this, SavedStateViewModelFactory(application, this)
