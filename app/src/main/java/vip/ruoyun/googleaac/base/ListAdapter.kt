@@ -1,7 +1,5 @@
 package vip.ruoyun.googleaac.base
 
-import androidx.paging.PagedList
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
