@@ -13,9 +13,7 @@ import androidx.lifecycle.*
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.AsyncListUtil
 import androidx.recyclerview.widget.DiffUtil
-import vip.ruoyun.googleaac.base.ListAdapter
 import vip.ruoyun.googleaac.databinding.ActivityMainBinding
 
 
@@ -186,6 +184,7 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         }
+
 
         val alls = LivePagedListBuilder(dataSourceFactory, 20).build()
 
