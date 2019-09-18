@@ -17,6 +17,4 @@ class TestAdapter(mCoScope: CoroutineScope, diffCallback: DiffUtil.ItemCallback<
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
-
 }

@@ -20,11 +20,19 @@ import androidx.annotation.NonNull;
  */
 public class TextSpanHelper {
 
+    public abstract class SimpleClickableSpan extends ClickableSpan {
+        @Override
+        public void updateDrawState(@NonNull TextPaint ds) {
+//            ds.setColor(ContextCompat.getColor(R.color.color_549CFF));
+            ds.setUnderlineText(false);
+        }
+    }
+
     private void test(final Context context) {    //使用方法
         TextView textView = new TextView(context);
         TextSpanHelper.with("我已阅读并同意《用户注册及服务协议》")
                 .addSpan(TextSpanHelper.newSpan().setStart(7).setEnd(18)
-                        .setClickableSpan(new ClickableSpan() {
+                        .setClickableSpan(new SimpleClickableSpan() {
                             @Override
                             public void onClick(@NonNull final View view) {
 
@@ -32,7 +40,7 @@ public class TextSpanHelper {
 
                             @Override
                             public void updateDrawState(@NonNull TextPaint ds) {
-//                                ds.setColor(context.getResources().getColor(R.color.color_549CFF));
+//                                ds.setColor(ContextCompat.getColor(context, R.color.color_549CFF));
                                 ds.setUnderlineText(false);
                             }
                         }))
