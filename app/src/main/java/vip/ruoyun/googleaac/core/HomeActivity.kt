@@ -1,7 +1,9 @@
 package vip.ruoyun.googleaac.core
 
 import android.util.JsonReader
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.work.ListenableWorker
 import kotlinx.coroutines.*
@@ -22,7 +24,21 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     //ViewModel 的获取方法
     //第一种方式
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModel {
+        failure(failure, ::showToast)
+        loadMode(loadMode, ::changeLoadMode)
+        observe(userLiveData) {
+
+        }
+    }
+
+    private fun showToast(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun changeLoadMode(@LoadMode mode: Int?) {
+
+    }
 
     //第二种方式
 //    private val homeViewModel: HomeViewModel by viewModels {
@@ -47,6 +63,27 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     private val str: String = ""
 
     override fun initView() {
+        homeViewModel.userLiveData.observe(this, Observer<User> {
+            binding.mTextView.text = it.name
+        })
+
+        homeViewModel.loadMode.observe(this, Observer {
+
+        })
+
+        homeViewModel.failure.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
+
+        failure(homeViewModel.failure) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+        loadMode(homeViewModel.loadMode) {
+
+        }
+
+        homeViewModel.getUser()
+
         binding.bean = homeViewModel
 
         lifecycleScope.launch {
@@ -97,3 +134,4 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         }
     }
 }
+

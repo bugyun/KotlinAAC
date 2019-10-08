@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import java.util.*
 
 interface HttpService {
 
@@ -41,5 +42,7 @@ interface HttpService {
 
 }
 
-data class User(var name: String, var id: Int = 0)
+data class User(var name: String = String.empty(), var id: Int = 0)
 data class Response<out T>(val code: String, val message: String, val t: T? = null)
+
+fun String.Companion.empty() = ""
