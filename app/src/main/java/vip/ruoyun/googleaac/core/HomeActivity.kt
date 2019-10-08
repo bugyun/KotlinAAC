@@ -1,13 +1,7 @@
 package vip.ruoyun.googleaac.core
 
-import android.os.Bundle
 import android.util.JsonReader
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.SavedStateViewModelFactory
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.work.ListenableWorker
 import kotlinx.coroutines.*
@@ -15,49 +9,46 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.flow
 import vip.ruoyun.googleaac.R
+import vip.ruoyun.googleaac.base.BaseActivity
 import vip.ruoyun.googleaac.databinding.ActivityHomeBinding
 
-class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
+class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
+    override fun initLayout(): Int = R.layout.activity_home
 
     private val mainScope = MainScope()//默认 是 ui 线程的调度器
     //自己创建一个协程域
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private val TAG by lazy(LazyThreadSafetyMode.NONE) { HomeActivity::class.java.simpleName }
+    //ViewModel 的获取方法
+    //第一种方式
+    private val homeViewModel: HomeViewModel by viewModels()
 
-    private val homeViewModel: HomeViewModel by lazy(LazyThreadSafetyMode.NONE) {
-        //                ViewModelProviders.of(this)[HomeViewModel::class.java]
-        ViewModelProvider(
-            this, SavedStateViewModelFactory(application, this)
-//            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        )[HomeViewModel::class.java]
+    //第二种方式
+//    private val homeViewModel: HomeViewModel by viewModels {
+//        object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//                return HomeViewModel() as T
+//            }
+//        }
+//    }
 
-//        ViewModelProvider(this)[HomeViewModel::class.java]
-    }
+    //第二种方式.可以保存状态
+//    private val homeViewModel: HomeViewModel by lazy(LazyThreadSafetyMode.NONE) {
+//        //                ViewModelProviders.of(this)[HomeViewModel::class.java]
+//        ViewModelProvider(
+//            this, SavedStateViewModelFactory(application, this)
+////            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+//        )[HomeViewModel::class.java]
+////        ViewModelProvider(this)[HomeViewModel::class.java]
+//    }
 
-    private val model: HomeViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel() as T
-            }
-        }
-    }
-
-    private val model2: HomeViewModel by viewModels()
-
-    private val binding: T by lazy {
-        val binDing =
-            DataBindingUtil.setContentView<T>(this, R.layout.activity_home)
-        binDing.lifecycleOwner = this
-        binDing
-    }
 
     private val str: String = ""
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun initView() {
         binding.bean = homeViewModel
-        lifecycleScope
+
         lifecycleScope.launch {
             flow {
                 emit(1) // Ok
@@ -76,7 +67,7 @@ class HomeActivity<T : ActivityHomeBinding> : AppCompatActivity() {
             mainScope.launch {
                 withContext(IO) {
 
-                    withContext(Main) {
+                    withContext(Main.immediate) {
 
                     }
                 }
