@@ -15,7 +15,7 @@ public class AacActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityAacBinding binding =  DataBindingUtil.setContentView(this, R.layout.activity_aac);
+        ActivityAacBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_aac);
 
 
         UserModel viewModel = new ViewModelProvider(this).get(UserModel.class);
@@ -23,7 +23,5 @@ public class AacActivity extends AppCompatActivity {
 //            binding. =
             binding.setUser(viewModel);
         });
-
-
     }
 }
