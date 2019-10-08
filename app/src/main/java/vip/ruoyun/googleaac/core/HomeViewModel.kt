@@ -40,15 +40,15 @@ class HomeViewModel(app: App) : AndroidViewModel(app) {
     }
 
     fun getUser() = viewModelScope.launch {
-        try {
-            handleLoadState(LoadMode.LOADING)
-            val user = UserNetWorkApi().getUser("")
-            userLiveData.value = user
-            handleLoadState(LoadMode.SUCCESS)
-        } catch (e: Exception) {
-            handleLoadState(LoadMode.NO_NETWORK)
-            handleFailure(e.message.toString())
-        }
+        handleLoadState(LoadMode.LOADING)
+        UserNetWorkApi().getUser("",
+            success = {
+                userLiveData.value = this
+                handleLoadState(LoadMode.SUCCESS)
+            }, failure = {
+                handleLoadState(LoadMode.NO_NETWORK)
+                handleFailure(this)
+            })
     }
 
     fun saveUser(user: User) = viewModelScope.launch {

@@ -28,14 +28,23 @@ class UserNetWorkApi {
 //        class None
 //    }
 
-    suspend fun getUser(name: String) = withContext(IO) {
-        val okHttpClient: OkHttpClient = OkHttpClient()
-        val request = Request.Builder().url("").build()
-        val response = okHttpClient.newCall(request).execute()//网络异常
-        val gson = Gson()
-        gson.fromJson(response.body?.charStream(), User::class.java)
-    }
-
+    suspend fun getUser(name: String, success: User.() -> Unit, failure: String.() -> Unit) =
+        withContext(IO) {
+            try {
+                val okHttpClient: OkHttpClient = OkHttpClient()
+                val request = Request.Builder().url("").build()
+                val response = okHttpClient.newCall(request).execute()//网络异常
+                val gson = Gson()
+                val user = gson.fromJson(response.body?.charStream(), User::class.java)
+                withContext(Main.immediate) {
+                    user.success()
+                }
+            } catch (e: Exception) {
+                withContext(Main.immediate) {
+                    e.message.toString().failure()
+                }
+            }
+        }
 
     @ExperimentalCoroutinesApi
     suspend fun getUser2(name: String): Flow<User> = flow {
