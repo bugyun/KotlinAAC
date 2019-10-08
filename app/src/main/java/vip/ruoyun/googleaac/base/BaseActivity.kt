@@ -8,7 +8,7 @@ import androidx.databinding.ViewDataBinding
 
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
-    private val TAG by lazy(LazyThreadSafetyMode.NONE) { this::class.java.simpleName }
+    protected val TAG by lazy(LazyThreadSafetyMode.NONE) { this::class.java.simpleName }
 
     protected lateinit var binding: T
 
