@@ -41,7 +41,7 @@ class HomeViewModel(app: App) : AndroidViewModel(app) {
 
     fun getUser() = viewModelScope.launch {
         handleLoadState(LoadMode.LOADING)
-        UserNetWorkApi().getUser("",
+        UserNetWorkApi().getUser<User>(
             success = {
                 userLiveData.value = this
                 handleLoadState(LoadMode.SUCCESS)

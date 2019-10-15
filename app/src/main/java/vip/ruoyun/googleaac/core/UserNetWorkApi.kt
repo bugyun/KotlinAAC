@@ -1,5 +1,6 @@
 package vip.ruoyun.googleaac.core
 
+import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -28,14 +29,19 @@ class UserNetWorkApi {
 //        class None
 //    }
 
-    suspend fun getUser(name: String, success: User.() -> Unit, failure: String.() -> Unit) =
+
+    suspend inline fun <reified T> http(
+        builder: Request.Builder,
+        crossinline success: T.() -> Unit,
+        crossinline failure: String.() -> Unit
+    ) =
         withContext(IO) {
             try {
                 val okHttpClient: OkHttpClient = OkHttpClient()
-                val request = Request.Builder().url("").build()
+                val request = builder.build()
                 val response = okHttpClient.newCall(request).execute()//网络异常
                 val gson = Gson()
-                val user = gson.fromJson(response.body?.charStream(), User::class.java)
+                val user = gson.fromJson(response.body?.charStream(), T::class.java)
                 withContext(Main.immediate) {
                     user.success()
                 }
@@ -45,6 +51,14 @@ class UserNetWorkApi {
                 }
             }
         }
+    //body: VM.() -> Unit
+
+    suspend inline fun <reified T> getUser(
+        crossinline success: T.() -> Unit,
+        crossinline failure: String.() -> Unit
+    ) {
+        http(Request.Builder(), success, failure)
+    }
 
     @ExperimentalCoroutinesApi
     suspend fun getUser2(name: String): Flow<User> = flow {
