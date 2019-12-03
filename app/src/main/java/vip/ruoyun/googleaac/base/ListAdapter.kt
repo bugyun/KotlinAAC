@@ -4,14 +4,12 @@ import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.*
 
 abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(
-    private val mCoScope: CoroutineScope,
+    private val mCoScope: CoroutineScope = MainScope(),
     val diffCallback: ItemCallback<T>
 ) : RecyclerView.Adapter<VH>() {
 
@@ -128,5 +126,9 @@ abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(
             // non-null which is the only case handled above.
             throw AssertionError()
         }
+    }
+
+    public fun cancel() {
+        mCoScope.cancel()
     }
 }

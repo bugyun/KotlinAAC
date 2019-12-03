@@ -166,16 +166,7 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
         }
 
 
-        val listAdapter = TestAdapter(lifecycleScope, object : DiffUtil.ItemCallback<User>() {
-            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-                return oldItem.name == newItem.name
-            }
-
-            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-                return oldItem.name == newItem.name
-            }
-
-        })
+        val listAdapter = TestAdapter(lifecycleScope)
 
         listAdapter.submitList(arrayListOf())
 
