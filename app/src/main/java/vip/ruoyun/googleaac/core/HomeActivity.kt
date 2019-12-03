@@ -3,10 +3,7 @@ package vip.ruoyun.googleaac.core
 import android.util.JsonReader
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.work.ListenableWorker
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -42,7 +39,15 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     }
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels(
+        factoryProducer = {
+            SavedStateViewModelFactory(
+                application,
+                this@HomeActivity
+//                intent.extras
+            )
+        }
+    )
 
 
 //    //第二种方式
@@ -61,7 +66,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 //            this, SavedStateViewModelFactory(application, this)
 ////            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
 //        )[HomeViewModel::class.java]
-////        ViewModelProvider(this)[HomeViewModel::class.java]
+//        ViewModelProvider(this)[HomeViewModel::class.java]
 //    }
 
 

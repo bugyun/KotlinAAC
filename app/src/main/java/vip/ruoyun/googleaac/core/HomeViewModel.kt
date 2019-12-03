@@ -1,5 +1,6 @@
 package vip.ruoyun.googleaac.core
 
+import android.app.Application
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.annotation.MainThread
@@ -15,7 +16,10 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(application: Application, savedStateHandle: SavedStateHandle) :
+    AndroidViewModel(application) {
+
+    val userId: String? = savedStateHandle["userId"]
 
     var name: MutableLiveData<String> = MutableLiveData()
 
@@ -98,7 +102,6 @@ class HomeViewModel : ViewModel() {
 
     }
 }
-
 
 fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> Unit) =
     liveData.observe(this, Observer(body))
