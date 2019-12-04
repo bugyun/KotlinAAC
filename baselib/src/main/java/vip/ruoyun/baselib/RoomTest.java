@@ -45,6 +45,7 @@ public class RoomTest {
 
 
         //
+        AppDatabase.getUserDao(context);
 
 
     }

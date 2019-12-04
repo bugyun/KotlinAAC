@@ -1,19 +1,25 @@
 package vip.ruoyun.googleaac.core
 
+import android.app.Application
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
-import com.google.gson.JsonParseException
-import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class HomeViewModel(app: App) : AndroidViewModel(app) {
+class HomeViewModel(application: Application, savedStateHandle: SavedStateHandle) :
+    AndroidViewModel(application) {
+
+    val userId: String? = savedStateHandle["userId"]
 
     var name: MutableLiveData<String> = MutableLiveData()
 
@@ -41,7 +47,7 @@ class HomeViewModel(app: App) : AndroidViewModel(app) {
 
     fun getUser() = viewModelScope.launch {
         handleLoadState(LoadMode.LOADING)
-        UserNetWorkApi().getUser("",
+        UserNetWorkApi().getUser<User>(
             success = {
                 userLiveData.value = this
                 handleLoadState(LoadMode.SUCCESS)
@@ -96,7 +102,6 @@ class HomeViewModel(app: App) : AndroidViewModel(app) {
 
     }
 }
-
 
 fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> Unit) =
     liveData.observe(this, Observer(body))

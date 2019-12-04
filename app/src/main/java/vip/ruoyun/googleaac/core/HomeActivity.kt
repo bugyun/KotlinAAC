@@ -3,8 +3,7 @@ package vip.ruoyun.googleaac.core
 import android.util.JsonReader
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.work.ListenableWorker
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -24,13 +23,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     //ViewModel 的获取方法
     //第一种方式
-    private val homeViewModel: HomeViewModel by viewModel {
-        failure(failure, ::showToast)
-        loadMode(loadMode, ::changeLoadMode)
-        observe(userLiveData) {
-
-        }
-    }
+//    private val homeViewModel: HomeViewModel by viewModel {
+//        failure(failure, ::showToast)
+//        loadMode(loadMode, ::changeLoadMode)
+//        observe(userLiveData) {
+//
+//        }
+//    }
 
     private fun showToast(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -40,7 +39,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     }
 
-    //第二种方式
+    private val homeViewModel: HomeViewModel by viewModels(
+        factoryProducer = {
+            SavedStateViewModelFactory(
+                application,
+                this@HomeActivity
+//                intent.extras
+            )
+        }
+    )
+
+
+//    //第二种方式
 //    private val homeViewModel: HomeViewModel by viewModels {
 //        object : ViewModelProvider.Factory {
 //            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -56,7 +66,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 //            this, SavedStateViewModelFactory(application, this)
 ////            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
 //        )[HomeViewModel::class.java]
-////        ViewModelProvider(this)[HomeViewModel::class.java]
+//        ViewModelProvider(this)[HomeViewModel::class.java]
 //    }
 
 
