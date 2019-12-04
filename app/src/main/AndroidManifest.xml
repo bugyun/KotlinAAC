@@ -14,7 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".java.ThreeActivity"></activity>
+        <activity
+            android:name=".message.MessageActivity"
+            android:label="@string/title_activity_message"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".java.ThreeActivity" />
         <activity android:name=".java.AacActivity" />
         <activity android:name=".core.HomeActivity">
             <intent-filter>

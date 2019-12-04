@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -20,6 +21,12 @@ private const val ARG_PARAM2 = "param2"
 /**
  */
 class HomeFragment : Fragment() {
+
+
+    private val onBackPressedDispatcher = requireActivity().onBackPressedDispatcher
+
+
+
 
     init {
         lifecycleScope.launch {
@@ -47,6 +54,11 @@ class HomeFragment : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+        }
+
+        onBackPressedDispatcher.addCallback {
+            this.isEnabled = false
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
