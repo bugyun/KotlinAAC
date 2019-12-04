@@ -13,6 +13,8 @@ import android.telephony.TelephonyManager;
  */
 public class NetUtil {
 
+
+
     /**
      * 获取当前网络连接的类型
      *
