@@ -13,7 +13,6 @@ import androidx.lifecycle.*
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.DiffUtil
 import vip.ruoyun.googleaac.databinding.ActivityMainBinding
 
 
@@ -66,7 +65,6 @@ class MainActivity : AppCompatActivity(), Observer<Resource<*>> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         useCurrentDay()
-
 
 //        startActivity(Intent(this, MainActivity::class.java).apply {
 //            putExtra("XX", "")
