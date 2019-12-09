@@ -15,9 +15,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".biometric.BiometricActivity"
+            android:label="指纹">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".message.MessageActivity"
             android:label="@string/title_activity_message"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".java.ThreeActivity" />
         <activity android:name=".java.AacActivity" />
         <activity android:name=".core.HomeActivity">
@@ -37,6 +44,31 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
+
+        <activity
+            android:name=".biometric.BiometricPromptDemo"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".biometric.BiometricPromptDemoActivityHost"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".biometric.BiometricPromptDemoFragmentHostActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".biometric.BiometricPromptDemoBiometricBoundKeyActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".biometric.BiometricPromptDemoCredentialBoundKeyActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
