@@ -21,6 +21,7 @@ class TestA(context: Context, workerParameters: WorkerParameters) :
         val data = Data.Builder().putString("1", "2").build()
         Result.success(data)
 //        Result.failure()
+
     }
 }
 

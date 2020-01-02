@@ -3,6 +3,7 @@ package vip.ruoyun.baselib;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.room.CoroutinesRoom;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
@@ -22,6 +23,7 @@ public class RoomTest {
         AppDatabase db = Room.databaseBuilder(context.getApplicationContext(),
                 AppDatabase.class, "database-name")
 //                .setTransactionExecutor()
+//                .setQueryExecutor(CoroutinesRoom.execute())
                 .enableMultiInstanceInvalidation()//启用多实例失效
                 .addMigrations(migration_1_2)//升级数据库
                 .addCallback(new RoomDatabase.Callback() {

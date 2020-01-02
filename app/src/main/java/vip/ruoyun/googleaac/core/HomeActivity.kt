@@ -3,7 +3,9 @@ package vip.ruoyun.googleaac.core
 import android.util.JsonReader
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateViewModelFactory
+import androidx.lifecycle.lifecycleScope
 import androidx.work.ListenableWorker
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -73,6 +75,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     private val str: String = ""
 
     override fun initView() {
+
+        var map = LinkedHashMap<String,String>()
+//        map.put()
+
         homeViewModel.userLiveData.observe(this, Observer<User> {
             binding.mTextView.text = it.name
         })
