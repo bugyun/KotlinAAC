@@ -16,9 +16,9 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
-                        "room.schemaLocation":"$projectDir/schemas".toString(),
-                        "room.incremental":"true",
-                        "room.expandProjection":"true"]
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
             }
         }
     }
@@ -46,24 +46,22 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 
-    def room_version = "2.2.3"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    api "androidx.room:room-runtime:2.2.3"
+    annotationProcessor "androidx.room:room-compiler:2.2.3"
     // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
+    //    api "androidx.room:room-coroutines:2.1.0-alpha04"
+    //按照与其他 androidx 工件相同的命名方式，工件 room-coroutines 已重命名为 room-ktx
+    api "androidx.room:room-ktx:2.2.3"
 
     // optional - RxJava support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
+    api "androidx.room:room-rxjava2:2.2.3"
 
     // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation "androidx.room:room-guava:$room_version"
+    api "androidx.room:room-guava:2.2.3"
 
     // Test helpers
-    testImplementation "androidx.room:room-testing:$room_version"
-
-    implementation "androidx.room:room-coroutines:2.1.0-alpha04"
+    testImplementation "androidx.room:room-testing:2.2.3"
 
 }
