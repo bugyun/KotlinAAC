@@ -66,6 +66,4 @@ dependencies {
 
     implementation "androidx.room:room-coroutines:2.1.0-alpha04"
 
-
-
 }

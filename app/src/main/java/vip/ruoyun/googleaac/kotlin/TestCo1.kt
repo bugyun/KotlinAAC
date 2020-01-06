@@ -87,7 +87,7 @@ class TestCo1 {
             print("1")
         }
         print("2")
-//        job.join()// 等待直到子协程执行结束
+        job.join()// 等待直到子协程执行结束
     }
 
 

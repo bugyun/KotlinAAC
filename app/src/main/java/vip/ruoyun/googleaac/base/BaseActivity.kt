@@ -15,6 +15,7 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<T>(this, initLayout()).apply {
+            //将布局视图绑定到架构组件
             lifecycleOwner = this@BaseActivity
         }
         initStatusBar()

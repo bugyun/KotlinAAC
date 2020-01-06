@@ -25,7 +25,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     //ViewModel 的获取方法
     //第一种方式
-//    private val homeViewModel: HomeViewModel by viewModel {
+//    private val homeViewModel2: HomeViewModel by viewModel {
 //        failure(failure, ::showToast)
 //        loadMode(loadMode, ::changeLoadMode)
 //        observe(userLiveData) {
@@ -41,15 +41,19 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     }
 
-    private val homeViewModel: HomeViewModel by viewModels(
-        factoryProducer = {
-            SavedStateViewModelFactory(
-                application,
-                this@HomeActivity
-//                intent.extras
-            )
-        }
-    )
+    //默认参数
+//    private val homeViewModel: HomeViewModel by viewModels(
+//        factoryProducer = {
+//            SavedStateViewModelFactory(
+//                application
+//                , this@HomeActivity
+//                , intent.extras
+//            )
+//        }
+//    )
+
+
+    private val homeViewModel: HomeViewModel by viewModels()
 
 
 //    //第二种方式
@@ -76,8 +80,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun initView() {
 
-        var map = LinkedHashMap<String,String>()
+        var map = LinkedHashMap<String, String>()
 //        map.put()
+
 
         homeViewModel.userLiveData.observe(this, Observer<User> {
             binding.mTextView.text = it.name
@@ -126,6 +131,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
                 }
             }
         }
+
+        lifecycle.addObserver(MyObserver())
 
 
         str.isNullOrEmpty()//相当于 TextUtils.isEmpty()

@@ -20,7 +20,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true //minSdkVersion 设为 21 或更高的值,则不需要 implementation
 
-        resConfigs "en", "zh-rCN"
+        resConfigs "zh"//,"en", "zh-rCN"
 
         javaCompileOptions {
             annotationProcessorOptions {

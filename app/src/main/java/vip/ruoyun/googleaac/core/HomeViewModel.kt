@@ -4,6 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.annotation.MainThread
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeViewModel(application: Application, savedStateHandle: SavedStateHandle) :
-    AndroidViewModel(application) {
+    AndroidViewModel(application), Observable {
+    private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
 
     val userId: String? = savedStateHandle["userId"]
 
@@ -26,6 +29,15 @@ class HomeViewModel(application: Application, savedStateHandle: SavedStateHandle
     var loadMode: MutableLiveData<Int> = MutableLiveData()
     var userLiveData: MutableLiveData<User> = MutableLiveData()
     var failure: MutableLiveData<String> = MutableLiveData()
+
+    val name1: LiveData<String> = liveData {
+        emit("nihao")
+    }
+
+    val age: LiveData<Int> = liveData {
+        emit(1)
+        
+    }
 
     private fun handleFailure(errorMessage: String) {
         this.failure.value = errorMessage
@@ -99,7 +111,14 @@ class HomeViewModel(application: Application, savedStateHandle: SavedStateHandle
     override fun onCleared() {
         super.onCleared()
 //        viewModelScope.cancel()
+    }
 
+    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.remove(callback)
+    }
+
+    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.add(callback)
     }
 }
 
