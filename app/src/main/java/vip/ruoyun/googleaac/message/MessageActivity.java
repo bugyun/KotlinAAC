@@ -41,6 +41,8 @@ public class MessageActivity extends AppCompatActivity {
             appSpecificSmsToken = smsManager.createAppSpecificSmsToken(pendingIntent);
         }
 
+//        AsyncChannel asyncChannel = new asyncchannel
+
 
     }
 

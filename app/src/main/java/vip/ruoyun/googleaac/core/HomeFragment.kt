@@ -11,9 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import vip.ruoyun.googleaac.R
+import vip.ruoyun.googleaac.testGson
+import vip.ruoyun.googleaac.testJsonObject
+import vip.ruoyun.googleaac.testJsonReader
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -26,8 +30,6 @@ class HomeFragment : Fragment() {
     private val onBackPressedDispatcher = requireActivity().onBackPressedDispatcher
 
 
-
-
     init {
         lifecycleScope.launch {
             whenStarted {
@@ -36,6 +38,10 @@ class HomeFragment : Fragment() {
                     //                    checkUserAccess()
                 }
 //                loadingView.visibility = View.GONE
+
+                var l = async { }
+                l.await()
+
             }
 
         }
@@ -60,6 +66,8 @@ class HomeFragment : Fragment() {
             this.isEnabled = false
             onBackPressedDispatcher.onBackPressed()
         }
+
+
     }
 
     override fun onCreateView(

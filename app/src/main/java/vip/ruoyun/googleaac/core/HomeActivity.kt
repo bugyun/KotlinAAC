@@ -4,7 +4,6 @@ import android.util.JsonReader
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.lifecycleScope
 import androidx.work.ListenableWorker
 import kotlinx.coroutines.*
@@ -14,6 +13,9 @@ import kotlinx.coroutines.flow.flow
 import vip.ruoyun.googleaac.R
 import vip.ruoyun.googleaac.base.BaseActivity
 import vip.ruoyun.googleaac.databinding.ActivityHomeBinding
+import vip.ruoyun.googleaac.testGson
+import vip.ruoyun.googleaac.testJsonObject
+import vip.ruoyun.googleaac.testJsonReader
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
@@ -79,6 +81,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     private val str: String = ""
 
     override fun initView() {
+
+        testGson()
+        testJsonObject()
+        testJsonReader()
 
         var map = LinkedHashMap<String, String>()
 //        map.put()
