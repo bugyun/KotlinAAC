@@ -192,9 +192,25 @@ fun <T> testJsontoBean(clz: Class<T>) {
     //MSON.fromJson(json, clazz); // 反序列化
     //MSON.toJson(bean); // 序列化
 
+    // json 工具
+    // 可以辨析
+
 }
 
-fun goTest() {
+fun <T> goTest(clz: Class<T>) {
     //这样使用，
     testJsontoBean(Model::class.java)
+
+    val t = clz.newInstance()
+
+
+
+
+
+
+
+
+
+
+
 }
